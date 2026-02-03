@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const API_URL = '/api/portfolio-ratios';
     const chartCanvas = document.getElementById('portfolio-chart');
     const legendUl = document.getElementById('portfolio-legend');
+    const lastUpdatedElement = document.getElementById('last-updated-time');
     let portfolioChart = null;
 
     const backgroundColors = [
@@ -99,6 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 legendUl.appendChild(li);
             }
+
+            // Display last updated time
+            lastUpdatedElement.textContent = `기준 시간: ${new Date().toLocaleString()}`;
 
         } catch (error) {
             console.error("Could not fetch or render portfolio:", error);

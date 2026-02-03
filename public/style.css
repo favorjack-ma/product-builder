@@ -48,6 +48,13 @@ h2 {
     color: #34495e;
 }
 
+.last-updated-style {
+    font-size: 0.8em;
+    color: #777;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
 #portfolio-legend {
     list-style: none;
     padding: 0;
