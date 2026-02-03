@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
         '#FFFFFF', '#FFFFFF'
     ];
 
+    // Register ChartDataLabels plugin
+    Chart.register(ChartDataLabels);
+
     async function fetchAndRenderPortfolio() {
         try {
             const response = await fetch(API_URL);
@@ -31,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 portfolioChart.destroy(); // Destroy previous chart instance before creating a new one
             }
             portfolioChart = new Chart(chartCanvas, {
-                type: 'pie',
+                type: 'bar', // Changed from 'pie' to 'bar'
                 data: {
                     labels: labels,
                     datasets: [{
@@ -39,29 +42,44 @@ document.addEventListener('DOMContentLoaded', () => {
                         data: ratios,
                         backgroundColor: backgroundColors,
                         borderColor: borderColors,
-                        borderWidth: 2
+                        borderWidth: 1 // Adjusted for bar chart
                     }]
                 },
                 options: {
+                    indexAxis: 'y', // For horizontal bars
                     responsive: true,
                     maintainAspectRatio: true,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100, // Max 100%
+                            title: {
+                                display: true,
+                                text: 'Ratio (%)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Asset'
+                            }
+                        }
+                    },
                     plugins: {
                         legend: {
                             display: false // We are using a custom HTML legend
                         },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed !== null) {
-                                        label += `${context.parsed.toFixed(2)}%`;
-                                    }
-                                    return label;
-                                }
-                            }
+                        datalabels: { // Datalabels plugin configuration
+                            formatter: (value, context) => {
+                                return value + '%'; // Display value as percentage
+                            },
+                            color: '#fff',
+                            font: {
+                                weight: 'bold'
+                            },
+                            anchor: 'end',
+                            align: 'start',
+                            offset: 4
                         }
                     }
                 }
