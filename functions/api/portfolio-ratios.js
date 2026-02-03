@@ -4,8 +4,14 @@
 async function getAssetData() {
     // --- REAL DATA ---
     // Using native fetch, which is available in Cloudflare Workers
-    const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&price_change_percentage=24h');
+    const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin');
     const data = await response.json();
+
+    // Check if data is an array and not empty
+    if (!Array.isArray(data) || data.length === 0) {
+        console.error("CoinGecko API returned empty or invalid data:", data);
+        throw new Error("CoinGecko API did not return Bitcoin data.");
+    }
     const bitcoin_24h_change = data[0].price_change_percentage_24h;
 
     // --- MOCK DATA ---
