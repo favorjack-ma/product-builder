@@ -4,7 +4,11 @@
 async function getAssetData() {
     // --- REAL DATA ---
     // Using native fetch, which is available in Cloudflare Workers
-    const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin');
+    const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin', {
+        headers: {
+            'User-Agent': 'Portfolio-Dashboard-Cloudflare-Function'
+        }
+    });
     const data = await response.json();
 
     // Check if data is an array and not empty
