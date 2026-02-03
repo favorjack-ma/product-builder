@@ -95,8 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const li = document.createElement('li');
                 li.innerHTML = `
                     <span class="legend-item-name">${asset.name}</span>
-                    <span class="legend-item-change ${changeClass}">${parseFloat(asset.change_24h).toFixed(2)}%</span>
-                    <span class="legend-item-ratio">${asset.ratio}%</span>
+                    <div>
+                        <span class="label">상승률:</span> <span class="legend-item-change ${changeClass}">${parseFloat(asset.change_24h).toFixed(2)}%</span>
+                    </div>
+                    <div>
+                        <span class="label">비율:</span> <span class="legend-item-ratio">${asset.ratio}%</span>
+                    </div>
                 `;
                 legendUl.appendChild(li);
             }
