@@ -1,23 +1,12 @@
-const express = require('express');
-const cors = require('cors');
-const axios = require('axios');
-const app = express();
-const port = 3000;
-
-app.use(cors());
-app.use(express.static('public'));
+// functions/api/portfolio-ratios.js
 
 // Function to fetch raw asset data
 async function getAssetData() {
     // --- REAL DATA ---
-    const response = await axios.get('https://api.coingecko.com/api/v3/coins/markets', {
-        params: {
-            vs_currency: 'usd',
-            ids: 'bitcoin',
-            price_change_percentage: '24h'
-        }
-    });
-    const bitcoin_24h_change = response.data[0].price_change_percentage_24h;
+    // Using native fetch, which is available in Cloudflare Workers
+    const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&price_change_percentage=24h');
+    const data = await response.json();
+    const bitcoin_24h_change = data[0].price_change_percentage_24h;
 
     // --- MOCK DATA ---
     const gold_24h_change = (Math.random() * 4) - 2;
@@ -34,8 +23,8 @@ async function getAssetData() {
     };
 }
 
-// API route to get calculated portfolio ratios
-app.get('/api/portfolio-ratios', async (req, res) => {
+// Cloudflare Pages Function handler
+export async function onRequest(context) {
     try {
         const assetData = await getAssetData();
         const portfolioRatios = {};
@@ -62,20 +51,15 @@ app.get('/api/portfolio-ratios', async (req, res) => {
             };
         }
 
-        res.json(portfolioRatios);
+        return new Response(JSON.stringify(portfolioRatios), {
+            headers: { 'Content-Type': 'application/json' }
+        });
 
     } catch (error) {
-        if (error.response) {
-            console.error('Error fetching API data:', error.response.status, error.response.data);
-            res.status(500).json({ error: 'Failed to fetch data from an external API.' });
-        } else {
-            console.error('Error setting up API request:', error.message);
-            res.status(500).json({ error: 'An internal server error occurred.' });
-        }
+        console.error('Error fetching or processing data:', error);
+        return new Response(JSON.stringify({ error: 'Failed to fetch or process data.' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' }
+        });
     }
-});
-
-
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
-});
+}

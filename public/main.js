@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_URL = 'http://localhost:3000/api/portfolio-ratios';
+    const API_URL = '/api/portfolio-ratios';
     const chartCanvas = document.getElementById('portfolio-chart');
     const legendUl = document.getElementById('portfolio-legend');
     let portfolioChart = null;
