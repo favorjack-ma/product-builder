@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto 40px;
+}
+
+.legend-container {
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h2 {
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    color: #34495e;
+}
+
+#portfolio-legend {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#portfolio-legend li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    font-size: 0.95em;
+    transition: background-color 0.3s;
+}
+
+#portfolio-legend li:hover {
+    background-color: #f0f0f0;
+}
+
+.legend-item-name {
+    font-weight: 500;
+}
+
+.legend-item-ratio {
+    font-weight: 700;
+    font-size: 1.1em;
+    color: #2980b9;
+}
+
+.legend-item-change {
+    font-size: 0.9em;
+    padding: 3px 8px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.positive {
+    background-color: #27ae60; /* Green */
+}
+
+.negative {
+    background-color: #c0392b; /* Red */
+}
