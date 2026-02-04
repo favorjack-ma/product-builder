@@ -20,6 +20,21 @@
             <ul id="portfolio-legend"></ul>
         </div>
     </div>
-    <script src="main.js"></script>
+
+    <section class="contact-section">
+        <h2>제휴 문의</h2>
+        <form action="https://formspree.io/f/mlglqpgq" method="POST" class="contact-form">
+            <label for="name">이름:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">이메일:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">메시지:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit">전송</button>
+        </form>
+    </section>
 </body>
 </html>
